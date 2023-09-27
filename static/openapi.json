@@ -1,0 +1,690 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Petstore - OpenAPI 3.0",
+    "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "item",
+      "description": "Everything about Items"
+    },
+    {
+      "name": "store",
+      "description": "About store"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    }
+  ],
+  "paths": {
+    "/items": {
+      "get": {
+        "security": [
+          {
+            "JWTAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/items"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "item not found"
+          }
+        }
+      }
+    },
+    "/item/{name}": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Find item by name",
+        "description": "Returns a item",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "name of item to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/item"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "item not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Add new item",
+        "description": "Add new item",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of item you want to add",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to add new item.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/item_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/item"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Item already present"
+          },
+          "500": {
+            "description": "An error occured inserting the item"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Add new item",
+        "description": "Add new item",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of item you want to add",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to add new item.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/item_request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/item"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Add new item",
+        "description": "Add new item",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of item you want to add",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation, item deleted"
+          },
+          "400": {
+            "description": "Item not found to delete"
+          }
+        }
+      }
+    },
+    "/stores": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Get all store",
+        "description": "Returns all stores",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/stores"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/{name}": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "Returns pet inventories by status",
+        "description": "Returns a map of status codes to quantities",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of item you want to add",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/store"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "store"
+        ],
+        "summary": "To add a store",
+        "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/store"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This named store already present"
+          },
+          "500": {
+            "description": "An error occured while creating the store"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "store"
+        ],
+        "summary": "To delete the store",
+        "description": "To delete the store",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Name of store you want to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation, store deleted"
+          },
+          "409": {
+            "description": "Store not found"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "To register",
+        "requestBody": {
+          "description": "Data to add new item.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user created successfully"
+          },
+          "409": {
+            "description": "User already exist"
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "To register",
+        "requestBody": {
+          "description": "Data to add new item.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/details"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token key"
+          }
+        }
+      }
+    },
+    "/user/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Find User by ID",
+        "description": "Returns a user",
+        "operationId": "getID",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID of user you want to get",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 3
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "To delete a user",
+        "description": "To delete a user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id of user you want to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "exapmle": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation, item deleted"
+          },
+          "404": {
+            "description": "Item not found to delete"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "stores": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "lake"
+            },
+            "item": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "hat"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 45
+                  },
+                  "store_id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "example": [
+            {
+              "id": 1,
+              "name": "lake",
+              "item": [
+                {
+                  "id": 1,
+                  "name": "hat",
+                  "price": 45,
+                  "store_id": 1
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "bed",
+              "item": [
+                {
+                  "id": 2,
+                  "name": "table",
+                  "price": 100,
+                  "store_id": 2
+                },
+                {
+                  "id": 3,
+                  "name": "bus",
+                  "price": 600,
+                  "store_id": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "username": {
+            "type": "string",
+            "example": "joy"
+          }
+        }
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "hat"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 45
+                },
+                "store_id": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        },
+        "example": {
+          "items": [
+            {
+              "id": 1,
+              "name": "hat",
+              "price": 45,
+              "store_id": 1
+            },
+            {
+              "id": 2,
+              "name": "table",
+              "price": 100,
+              "store_id": 2
+            },
+            {
+              "id": 3,
+              "name": "bus",
+              "price": 600,
+              "store_id": 2
+            },
+            {
+              "id": 4,
+              "name": "aa",
+              "price": 45.7,
+              "store_id": 4
+            },
+            {
+              "id": 5,
+              "name": "rt",
+              "price": 545.7,
+              "store_id": 4
+            },
+            {
+              "id": 6,
+              "name": "op",
+              "price": 45.7,
+              "store_id": 4
+            }
+          ]
+        }
+      },
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 4
+          },
+          "name": {
+            "type": "string",
+            "example": "Palo"
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 45.6
+          },
+          "store_id": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "item_request": {
+        "type": "object",
+        "properties": {
+          "store_id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 4
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 45.7
+          }
+        }
+      },
+      "details": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "key_get": {
+        "type": "object",
+        "properties": {
+          "Key": "type string"
+        }
+      },
+      "store": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "exapmle": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "house"
+          },
+          "item": {
+            "type": "string",
+            "example": null
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWTAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Enter your JWT token in the format 'Bearer YOUR_JWT_TOKEN'"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWTAuth": []
+    }
+  ]
+}
