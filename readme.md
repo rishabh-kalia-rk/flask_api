@@ -150,7 +150,7 @@ The project uses SQLAlchemy to interact with the database. Make sure to set up y
 ## **Swagger Documentation**
 Interactive API documentation is available using Swagger UI. Access it at http://localhost:5000/swagger after running the application. Explore and test the API endpoints directly from the Swagger UI interface
 
-### Want to demo online?
+### Online demo?
 #### [Backend Flask REST API]()
 
 ## **Conclusion**
